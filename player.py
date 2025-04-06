@@ -8,17 +8,18 @@ class Player(pygame.sprite.Sprite):
         #info about spritesheet
         self.sprite_sheet = './Sprout Lands - Sprites - premium pack/Characters/Premium Charakter Spritesheet.png'
         self.sprite_rows = 24
-        self.sprite_columns = 9
-        sprite_width = 42
-        sprite_height = 42
+        self.sprite_columns = 8
+        self.sprite_width = 42
+        self.sprite_height = 42
+        self.scale = 8
 
-
+        # additional state properties used for animation
         self.import_assets()
-        self.status = 'down_axe'
+        self.status = 'down_idle'
         self.frame_index = 0
 
-        #general setup
-        self.image = pygame.transform.scale(self.animations[self.status][self.frame_index], (sprite_width * 4, sprite_height * 4))
+        #general setup, including scaling image to be bigger
+        self.image = pygame.transform.scale(self.animations[self.status][self.frame_index], (self.sprite_width * self.scale, self.sprite_height * self.scale))
         self.rect = self.image.get_rect(center = pos)
 
         #movement attributes
@@ -35,7 +36,12 @@ class Player(pygame.sprite.Sprite):
                             'down_axe' : self.sprite_frames[16], 'up_axe' : self.sprite_frames[17], 'right_axe' : self.sprite_frames[18], 'left_axe' : self.sprite_frames[19], 
                             'down_water' : self.sprite_frames[20], 'up_water' : self.sprite_frames[21], 'right_water' : self.sprite_frames[22], 'left_water' : self.sprite_frames[23], }
         print(self.animations['right_water'])
-        
+
+    def animate(self, dt):
+        self.frame_index += 8 * dt
+        if self.frame_index >= len(self.animations[self.status]):
+            self.frame_index = 0
+        self.image = pygame.transform.scale(self.animations[self.status][int(self.frame_index)], (self.sprite_width * self.scale, self.sprite_height * self.scale))
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -63,7 +69,7 @@ class Player(pygame.sprite.Sprite):
         self.pos.y += self.direction.y * self.speed * dt
         self.rect.centery = self.pos.y
 
-    
     def update(self, dt):
         self.input()
         self.move(dt)
+        self.animate(dt)
