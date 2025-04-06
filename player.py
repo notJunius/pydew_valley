@@ -35,7 +35,6 @@ class Player(pygame.sprite.Sprite):
                             'down_hoe' : self.sprite_frames[12], 'up_hoe' : self.sprite_frames[13], 'right_hoe' : self.sprite_frames[14], 'left_hoe' : self.sprite_frames[15], 
                             'down_axe' : self.sprite_frames[16], 'up_axe' : self.sprite_frames[17], 'right_axe' : self.sprite_frames[18], 'left_axe' : self.sprite_frames[19], 
                             'down_water' : self.sprite_frames[20], 'up_water' : self.sprite_frames[21], 'right_water' : self.sprite_frames[22], 'left_water' : self.sprite_frames[23], }
-        print(self.animations['right_water'])
 
     def animate(self, dt):
         self.frame_index += 8 * dt
