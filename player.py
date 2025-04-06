@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.sprite_columns = 8
         self.sprite_width = 42
         self.sprite_height = 42
-        self.scale = 8
+        self.scale = 4
 
         # additional state properties used for animation
         self.import_assets()
@@ -48,17 +48,35 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_w]:
             self.direction.y = -1
+            self.status = 'up_walk'
         elif keys[pygame.K_s]:
             self.direction.y = 1
+            self.status = 'down_walk'
         else:
             self.direction.y = 0
         
         if keys[pygame.K_d]:
             self.direction.x = 1
+            self.status = 'right_walk'
         elif keys[pygame.K_a]:
             self.direction.x = -1
+            self.status = 'left_walk'
         else:
             self.direction.x = 0
+
+        if (self.direction.y == 0) and (self.direction.x == 0):
+            match self.status:
+                case 'up_walk':
+                    self.status = 'up_idle'
+                case 'down_walk':
+                    self.status = 'down_idle'
+                case 'left_walk':
+                    self.status = 'left_idle'
+                case 'right_walk':
+                    self.status = 'right_idle'
+    
+    
+    
     
     def move(self, dt):
         if self.direction.magnitude() > 0:
