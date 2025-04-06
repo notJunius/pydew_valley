@@ -1,2 +1,2 @@
 # pydew_valley
-making stardewvalleyclone in python
+making stardewvalley clone in python
