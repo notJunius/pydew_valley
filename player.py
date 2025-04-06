@@ -5,12 +5,20 @@ from animator import create_frames
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, group):
         super().__init__(group)
+        #info about spritesheet
+        self.sprite_sheet = './Sprout Lands - Sprites - premium pack/Characters/Premium Charakter Spritesheet.png'
+        self.sprite_rows = 24
+        self.sprite_columns = 9
+        sprite_width = 42
+        sprite_height = 42
+
 
         self.import_assets()
+        self.status = 'down_axe'
+        self.frame_index = 0
 
         #general setup
-        self.image = pygame.Surface((32, 64))
-        self.image.fill('green')
+        self.image = pygame.transform.scale(self.animations[self.status][self.frame_index], (sprite_width * 4, sprite_height * 4))
         self.rect = self.image.get_rect(center = pos)
 
         #movement attributes
@@ -19,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 200
 
     def import_assets(self):
-        self.sprite_frames = create_frames('./Sprout Lands - Sprites - premium pack/Characters/Premium Charakter Spritesheet.png', 24, 9)
+        self.sprite_frames = create_frames(self.sprite_sheet, self.sprite_rows, self.sprite_columns)
         self.animations = {'down_idle': self.sprite_frames[0], 'up_idle' : self.sprite_frames[1], 'right_idle' : self.sprite_frames[2], 'left_idle' : self.sprite_frames[3], 
                             'down_walk' : self.sprite_frames[4], 'up_walk' : self.sprite_frames[5], 'right_walk' : self.sprite_frames[6], 'left_walk' : self.sprite_frames[7], 
                             'down_run' : self.sprite_frames[8], 'up_run' : self.sprite_frames[9], 'right_run' : self.sprite_frames[10], 'left_run' : self.sprite_frames[11], 
