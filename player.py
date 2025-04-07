@@ -143,17 +143,6 @@ class Player(pygame.sprite.Sprite):
                     self.selected_seed = self.seeds[self.seed_index]
                     print(self.selected_seed)
                 
-                
-    
-                
-                
-    
-                
-                
-    
-                
-                
-    
     def get_status(self):
         key = pygame.key.get_pressed()
         
