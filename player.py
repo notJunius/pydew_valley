@@ -47,36 +47,35 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_w]:
             self.direction.y = -1
-            self.status = 'up_walk'
+            self.status = 'up'
         elif keys[pygame.K_s]:
             self.direction.y = 1
-            self.status = 'down_walk'
+            self.status = 'down'
         else:
             self.direction.y = 0
         
         if keys[pygame.K_d]:
             self.direction.x = 1
-            self.status = 'right_walk'
+            self.status = 'right'
         elif keys[pygame.K_a]:
             self.direction.x = -1
-            self.status = 'left_walk'
+            self.status = 'left'
         else:
             self.direction.x = 0
+    
+    def get_status(self):
+        key = pygame.key.get_pressed
+        
+        # idle
+        if self.direction.magnitude() == 0:
+            self.status = self.status.split('_')[0] + '_idle'
+            
 
-        if (self.direction.y == 0) and (self.direction.x == 0):
-            match self.status:
-                case 'up_walk':
-                    self.status = 'up_idle'
-                case 'down_walk':
-                    self.status = 'down_idle'
-                case 'left_walk':
-                    self.status = 'left_idle'
-                case 'right_walk':
-                    self.status = 'right_idle'
-    
-    
-    
-    
+        # walk
+        if self.direction.magnitude() > 0:
+            self.status = self.status.split('_')[0] + '_walk'
+
+
     def move(self, dt):
         if self.direction.magnitude() > 0:
             self.direction = self.direction.normalize()
@@ -88,5 +87,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, dt):
         self.input()
+        self.get_status()
         self.move(dt)
         self.animate(dt)
