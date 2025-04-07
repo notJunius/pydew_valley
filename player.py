@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.sprite_columns = 8
         self.sprite_width = 42
         self.sprite_height = 42
-        self.scale = 4
+        self.scale = 8
 
         # additional state properties used for animation
         self.import_assets()
@@ -26,6 +26,9 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.pos = pygame.math.Vector2(self.rect.center)
         self.speed = 200
+
+        #tools
+        self.selected_tool = 'axe'
 
     def import_assets(self):
         self.sprite_frames = create_frames(self.sprite_sheet, self.sprite_rows, self.sprite_columns)
@@ -45,6 +48,7 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed()
 
+        # Direction
         if keys[pygame.K_w]:
             self.direction.y = -1
             self.status = 'up'
@@ -53,7 +57,6 @@ class Player(pygame.sprite.Sprite):
             self.status = 'down'
         else:
             self.direction.y = 0
-        
         if keys[pygame.K_d]:
             self.direction.x = 1
             self.status = 'right'
@@ -62,18 +65,26 @@ class Player(pygame.sprite.Sprite):
             self.status = 'left'
         else:
             self.direction.x = 0
+        
+        # tool use
+        if keys[pygame.K_SPACE]:
+            #timer for tool use
+            pass
     
     def get_status(self):
-        key = pygame.key.get_pressed
+        key = pygame.key.get_pressed()
         
         # idle
         if self.direction.magnitude() == 0:
             self.status = self.status.split('_')[0] + '_idle'
             
-
+        if (self.direction.magnitude() > 0) and key[pygame.K_LSHIFT]:
+            self.status = self.status.split('_')[0] + '_run'
+            self.speed = 300
         # walk
-        if self.direction.magnitude() > 0:
+        elif self.direction.magnitude() > 0:
             self.status = self.status.split('_')[0] + '_walk'
+            self.speed = 200
 
 
     def move(self, dt):
