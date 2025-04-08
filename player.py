@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.sprite_columns = 8
         self.sprite_width = 42
         self.sprite_height = 42
-        self.scale = 8
+        self.scale = 4
 
         # additional state properties used for animation
         self.import_assets()
@@ -31,9 +31,9 @@ class Player(pygame.sprite.Sprite):
         #timers
         self.timers = {
             'tool use' : Timer(750, self.use_tool),
-            'tool switch': Timer(100),
+            'tool switch': Timer(200),
             'seed use': Timer(750, self.use_seed),
-            'seed switch': Timer(100)
+            'seed switch': Timer(200)
         }
         #tools
         self.tool_index = 0
@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
         self.selected_tool = self.tools[self.tool_index]
 
         # seeds
-        self.seeds = ['none', 'corn', 'carrot', 'cauliflower', 'tomato', 'eggplant', 'wheat', 'pumpkin', 'cucumber' ]
+        self.seeds = ['carrot', 'tomato', 'none']
         self.seed_index = 0
         self.selected_seed = self.seeds[self.seed_index]
     
