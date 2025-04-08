@@ -22,6 +22,7 @@ class Player(pygame.sprite.Sprite):
         #general setup, including scaling image to be bigger
         self.image = pygame.transform.scale(self.animations[self.status][self.frame_index], (self.sprite_width * self.scale, self.sprite_height * self.scale))
         self.rect = self.image.get_rect(center = pos)
+        self.z = LAYERS['main']
 
         #movement attributes
         self.direction = pygame.math.Vector2()
