@@ -125,23 +125,19 @@ class Player(pygame.sprite.Sprite):
                     self.timers['seed switch'].activate()
                     self.seed_index = len(self.seeds) - 1
                     self.selected_seed = self.seeds[self.seed_index]
-                    print(self.selected_seed)
                 else: 
                     self.timers['seed switch'].activate()
                     self.seed_index -= 1
                     self.selected_seed = self.seeds[self.seed_index]
-                    print(self.selected_seed)
             if keys[pygame.K_c] and not self.timers['seed switch'].active:
                 if self.seed_index == len(self.seeds) - 1:
                     self.timers['seed switch'].activate()
                     self.seed_index = 0
                     self.selected_seed = self.seeds[self.seed_index]
-                    print(self.selected_seed)
                 else: 
                     self.timers['seed switch'].activate()
                     self.seed_index += 1
                     self.selected_seed = self.seeds[self.seed_index]
-                    print(self.selected_seed)
                 
     def get_status(self):
         key = pygame.key.get_pressed()
