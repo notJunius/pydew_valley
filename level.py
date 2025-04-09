@@ -17,8 +17,20 @@ class Level:
     def setup(self):
 
         tmx_data = load_pygame('./Sprout Lands - Sprites - premium pack/Maps/starting_map..tmx')
+
         for x,y, surf in tmx_data.get_layer_by_name('hills').tiles():
+            Generic((x * TILE_SIZE, y * TILE_SIZE), surf, self.all_sprites, LAYERS['main'])
+
+        for x,y, surf in tmx_data.get_layer_by_name('ground').tiles():
             Generic((x * TILE_SIZE, y * TILE_SIZE), surf, self.all_sprites, LAYERS['ground'])
+        for x,y, surf in tmx_data.get_layer_by_name('water').tiles():
+            Generic((x * TILE_SIZE, y * TILE_SIZE), surf, self.all_sprites, LAYERS['ground'])
+
+
+
+
+
+
 
 
         #Generic((0, 0), pygame.image.load('./Sprout Lands - Sprites - premium pack/Tilesets/ground.png').convert_alpha(), self.all_sprites, LAYERS['ground'])
