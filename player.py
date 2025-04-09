@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.sprite_columns = 8
         self.sprite_width = 42
         self.sprite_height = 42
-        self.scale = 4
+        self.scale = 1
 
         # additional state properties used for animation
         self.import_assets()
